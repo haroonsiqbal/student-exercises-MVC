@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using StudentExercisesMVC.Models;
+using StudentExercisesMVC.Models.ViewModels;
 
 namespace StudentExercisesMVC.Controllers
 {
@@ -108,19 +110,53 @@ namespace StudentExercisesMVC.Controllers
         // GET: Students/Create
         public ActionResult Create()
         {
-            return View();
+            var viewModel = new StudentCreateViewModel();
+            var cohorts = GetAllCohorts();
+            var selectItems = cohorts
+                .Select(cohort => new SelectListItem
+                {
+                    Text = cohort.CohortName,
+                    Value = cohort.Id.ToString()
+                })
+                .ToList();
+
+            selectItems.Insert(0, new SelectListItem
+            {
+                Text = "Choose cohort...",
+                Value = "0"
+            });
+            viewModel.Cohorts = selectItems;
+            return View(viewModel);
         }
 
         // POST: Students/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(StudentCreateViewModel model)
         {
             try
             {
-                // TODO: Add insert logic here
+                using (SqlConnection conn = Connection)
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = @"INSERT INTO Student
+                ( StuFirstName, StuLastName, StuSlackHandle, StuCohortId )
+                VALUES
+                ( @firstName, @lastName, @slackHandle, @cohortId )";
+                        cmd.Parameters.Add(new SqlParameter("@firstName", model.student.StuFirstName));
+                        cmd.Parameters.Add(new SqlParameter("@lastName", model.student.StuLastName));
+                        cmd.Parameters.Add(new SqlParameter("@slackHandle", model.student.StuSlackHandle));
+                        cmd.Parameters.Add(new SqlParameter("@cohortId", model.student.CohortId));
+                        cmd.ExecuteNonQuery();
 
-                return RedirectToAction(nameof(Index));
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
+ 
+
+               
             }
             catch
             {
@@ -212,5 +248,33 @@ namespace StudentExercisesMVC.Controllers
                 return View();
             }
         }
+
+        private List<Cohort> GetAllCohorts()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Id, CohortName FROM Cohort";
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<Cohort> cohorts = new List<Cohort>();
+                    while (reader.Read())
+                    {
+                        cohorts.Add(new Cohort
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            CohortName = reader.GetString(reader.GetOrdinal("CohortName")),
+                        });
+                    }
+
+                    reader.Close();
+
+                    return cohorts;
+                }
+            }
+        }
+
     }
 }

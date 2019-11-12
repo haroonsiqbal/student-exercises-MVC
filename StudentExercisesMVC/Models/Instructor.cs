@@ -18,9 +18,7 @@ namespace StudentExercisesMVC.Models
         public string InstSlackHandle { get; set; }
         public int InstCohort { get; set; }
         public Cohort Cohort { get; set; }
-        public string
-            InstSpeciality
-        { get; set; }
+        public string InstSpeciality { get; set; }
         public List<Instructor> instructorlist { get; set; } = new List<Instructor>();
     }
 }
