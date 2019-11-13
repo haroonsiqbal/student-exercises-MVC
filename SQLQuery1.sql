@@ -1,1 +1,1 @@
-﻿SELECT * FROM Instructor
+﻿SELECT * FROM Exercise

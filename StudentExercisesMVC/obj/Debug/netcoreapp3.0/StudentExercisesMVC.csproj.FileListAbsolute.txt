@@ -139,3 +139,8 @@ C:\Users\Haroon\source\repos\StudentExercisesMVC\StudentExercisesMVC\obj\Debug\n
 C:\Users\Haroon\source\repos\StudentExercisesMVC\StudentExercisesMVC\obj\Debug\netcoreapp3.0\Razor\Views\Instructors\Edit.cshtml.g.cs
 C:\Users\Haroon\source\repos\StudentExercisesMVC\StudentExercisesMVC\obj\Debug\netcoreapp3.0\Razor\Views\Instructors\Delete.cshtml.g.cs
 C:\Users\Haroon\source\repos\StudentExercisesMVC\StudentExercisesMVC\obj\Debug\netcoreapp3.0\Razor\Views\Instructors\Create.cshtml.g.cs
+C:\Users\Haroon\source\repos\StudentExercisesMVC\StudentExercisesMVC\obj\Debug\netcoreapp3.0\Razor\Views\Exercises\Index.cshtml.g.cs
+C:\Users\Haroon\source\repos\StudentExercisesMVC\StudentExercisesMVC\obj\Debug\netcoreapp3.0\Razor\Views\Exercises\Details.cshtml.g.cs
+C:\Users\Haroon\source\repos\StudentExercisesMVC\StudentExercisesMVC\obj\Debug\netcoreapp3.0\Razor\Views\Exercises\Create.cshtml.g.cs
+C:\Users\Haroon\source\repos\StudentExercisesMVC\StudentExercisesMVC\obj\Debug\netcoreapp3.0\Razor\Views\Exercises\Edit.cshtml.g.cs
+C:\Users\Haroon\source\repos\StudentExercisesMVC\StudentExercisesMVC\obj\Debug\netcoreapp3.0\Razor\Views\Exercises\Delete.cshtml.g.cs
