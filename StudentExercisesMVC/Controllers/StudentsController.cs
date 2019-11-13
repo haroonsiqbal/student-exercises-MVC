@@ -142,7 +142,7 @@ namespace StudentExercisesMVC.Controllers
                     using (SqlCommand cmd = conn.CreateCommand())
                     {
                         cmd.CommandText = @"INSERT INTO Student
-                ( StuFirstName, StuLastName, StuSlackHandle, StuCohortId )
+                ( StuFirstName, StuLastName, StuSlackHandle, CohortId )
                 VALUES
                 ( @firstName, @lastName, @slackHandle, @cohortId )";
                         cmd.Parameters.Add(new SqlParameter("@firstName", model.student.StuFirstName));
