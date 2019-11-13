@@ -1,1 +1,1 @@
-﻿SELECT * FROM Cohort
+﻿SELECT * FROM Instructor
