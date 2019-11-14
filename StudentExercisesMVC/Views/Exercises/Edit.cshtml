@@ -1,4 +1,4 @@
-﻿@model StudentExercisesMVC.Models.Exercise
+﻿@model StudentExercisesMVC.Models.ViewModels.ExerciseEditViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,19 +13,19 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
+                <label asp-for="exercise.Id" class="control-label"></label>
+                <input asp-for="exercise.Id" class="form-control" />
+                <span asp-validation-for="exercise.Id" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ExerciseName" class="control-label"></label>
-                <input asp-for="ExerciseName" class="form-control" />
-                <span asp-validation-for="ExerciseName" class="text-danger"></span>
+                <label asp-for="exercise.ExerciseName" class="control-label"></label>
+                <input asp-for="exercise.ExerciseName" class="form-control" />
+                <span asp-validation-for="exercise.ExerciseName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ExerciseLang" class="control-label"></label>
-                <input asp-for="ExerciseLang" class="form-control" />
-                <span asp-validation-for="ExerciseLang" class="text-danger"></span>
+                <label asp-for="exercise.ExerciseLang" class="control-label"></label>
+                <input asp-for="exercise.ExerciseLang" class="form-control" />
+                <span asp-validation-for="exercise.ExerciseLang" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

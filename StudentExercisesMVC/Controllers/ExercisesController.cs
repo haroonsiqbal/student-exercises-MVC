@@ -160,13 +160,19 @@ namespace StudentExercisesMVC.Controllers
         // GET: Exercises/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var viewModel = new ExerciseEditViewModel()
+            {
+                exercise = GetExerciseById(id),
+
+            };
+            return View(viewModel);
         }
+
 
         // POST: Exercises/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection, Exercise exercise)
+        public ActionResult Edit(int id, IFormCollection collection, ExerciseEditViewModel viewModel)
         {
             try
             {
@@ -180,8 +186,8 @@ namespace StudentExercisesMVC.Controllers
                                                 ExerciseLang = @exerciseLang
                                                 
                                             WHERE Id = @id";
-                        cmd.Parameters.Add(new SqlParameter("@exerciseName", exercise.ExerciseName));
-                        cmd.Parameters.Add(new SqlParameter("@exerciseLang", exercise.ExerciseLang));
+                        cmd.Parameters.Add(new SqlParameter("@exerciseName", viewModel.exercise.ExerciseName));
+                        cmd.Parameters.Add(new SqlParameter("@exerciseLang", viewModel.exercise.ExerciseLang));
                         cmd.Parameters.Add(new SqlParameter("@id", id));
 
                         int rowsaffected = cmd.ExecuteNonQuery();
@@ -265,6 +271,34 @@ namespace StudentExercisesMVC.Controllers
                 }
             }
         }
+        private Exercise GetExerciseById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT Id, ExerciseName, ExerciseLang
+                                         FROM Exercise
+                                        WHERE Id = @id";
+                    cmd.Parameters.Add(new SqlParameter("@id", id));
+                    var reader = cmd.ExecuteReader();
 
+                    Exercise exercise = null;
+                    if (reader.Read())
+                    {
+                        exercise = new Exercise
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("id")),
+                            ExerciseName = reader.GetString(reader.GetOrdinal("ExerciseName")),
+                            ExerciseLang = reader.GetString(reader.GetOrdinal("ExerciseLang"))
+                            
+                        };
+                    }
+                    reader.Close();
+                    return exercise;
+                }
+            }
+        }
     }
 }
